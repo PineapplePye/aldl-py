@@ -1,0 +1,9 @@
+.*.swp
+.venv
+.vscode
+other/
+dumps/receive copy/
+dumps/receive copy 2/
+ALDL-Documentation/
+.sync.ffs_db
+**/.DS_Store

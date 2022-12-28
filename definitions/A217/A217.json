@@ -1,0 +1,1143 @@
+{
+    "baud": 8192,
+    "message_id": "0xf4",
+    "normal_mode": "0x00",
+
+    "transmit_modes": [
+        {
+            "transmit_mode": "0x01",
+            "message": "0x00",
+            "data_bytes": 63,
+
+            "data_definitions": [
+                {
+                    "offset": "0x00",
+                    "name": "PROMIDA",
+                    "description": "PROM ID word"
+                },
+                {
+                    "offset": "0x01",
+                    "name": "PROMIDA",
+                    "description": "PROM ID word"
+                },
+                {
+                    "offset": "0x02",
+                    "name": "NVMW",
+                    "description": "Non-volatile mode word",
+                    "bit_flags": [
+                        {
+                            "description": "O2 sensor ready flag",
+                            "0_value": "Not Ready",
+                            "1_value": "Ready"
+                        },
+                        {
+                            "description": "Closed loop timer OK flag",
+                            "0_value": "Not OK",
+                            "1_value": "OK"
+                        },
+                        {
+                            "description": "Ram refresh error has occurred"
+                        },
+                        {
+                            "description": "Improper shutdown flag",
+                            "0_value": "Proper",
+                            "1_value": "Improper"
+                        },
+                        {
+                            "description": "Hot restart proceeding flag"
+                        },
+                        null,
+                        null,
+                        {
+                            "description": "Malfunction 42 fail flag (EST. monitor)"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x03",
+                    "name": "DIACMW3",
+                    "description": "Mode word for idle control 1",
+                    "bit_flags": [
+                        {
+                            "description": "A/C On"
+                        },
+                        {
+                            "description": "In drive",
+                            "0_value": "P/N",
+                            "1_value": "Drive" 
+                        },
+                        {
+                            "description": "Conditions for C/L on RPM have been met (TPS closed and low MPH)"
+                        },
+                        {
+                            "description": "C/L on RPM enabled (Conditions met long enough or low RPM on A/T veh.)"
+                        },
+                        {
+                            "description": "Stall saver"
+                        },
+                        {
+                            "description": "Power steering pressure load active"
+                        },
+                        {
+                            "description": "Throttle kicker has been disabled once"
+                        },
+                        {
+                            "description": "Idle RPM to high (Sign)"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x04",
+                    "name": "ISSPMP",
+                    "description": "IAC present motor position",
+                    "unit": "Steps"
+                },
+                {
+                    "offset": "0x05",
+                    "name": "MALFFLG1",
+                    "description": "Malfunction flag word 1",
+                    "bit_flags": [
+                        {
+                            "description": "Code 21: Throttle position high"
+                        },
+                        {
+                            "description": "Code 19: Not used"
+                        },
+                        {
+                            "description": "Code 18: Not used"
+                        },
+                        {
+                            "description": "Code 17: Not used"
+                        },
+                        {
+                            "description": "Code 16: 2002 PPM veh speed sensor failure"
+                        },
+                        {
+                            "description": "Code 15: Coolant sensor low temperature"
+                        },
+                        {
+                            "description": "Code 14: Coolant sensor high temperature"
+                        },
+                        {
+                            "description": "Code 13: Oxygen sensor"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x06",
+                    "name": "MALFFLG2",
+                    "description": "Malfunction flag word 2",
+                    "bit_flags": [
+                        {
+                            "description": "Code 29: Not used"
+                        },
+                        {
+                            "description": "Code 28: Pressure switch manifold"
+                        },
+                        {
+                            "description": "Code 27: Not used"
+                        },
+                        {
+                            "description": "Code 26: Not used"
+                        },
+                        {
+                            "description": "Code 25: MAT sensor high"
+                        },
+                        {
+                            "description": "Code 24: Vehicle speed sensor"
+                        },
+                        {
+                            "description": "Code 23: MAT sensor low"
+                        },
+                        {
+                            "description": "Code 22: Throttle position low"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x07",
+                    "name": "MALFFLG3",
+                    "description": "Malfunction flag word 3",
+                    "bit_flags": [
+                        {
+                            "description": "Code 38: Brake off"
+                        },
+                        {
+                            "description": "Code 37: Brake on"
+                        },
+                        {
+                            "description": "Code 36: IAC throttle kicker failure"
+                        },
+                        {
+                            "description": "Code 35: IAC failure"
+                        },
+                        {
+                            "description": "Code 34: MAP sensor low"
+                        },
+                        {
+                            "description": "Code 33: MAP sensor high"
+                        },
+                        {
+                            "description": "Code 32: EGR failure"
+                        },
+                        {
+                            "description": "Code 31: Governor failure"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x08",
+                    "name": "MALFFLG4",
+                    "description": "Malfunction flag word 4",
+                    "bit_flags": [
+                        {
+                            "description": "Code 47: Not Used"
+                        },
+                        {
+                            "description": "Code 46: VATS failure"
+                        },
+                        {
+                            "description": "Code 45: Oxygen sensor rich"
+                        },
+                        {
+                            "description": "Code 44: Oxygen sensor lean"
+                        },
+                        {
+                            "description": "Code 43: ESC failure"
+                        },
+                        {
+                            "description": "Code 42: EST. monitor"
+                        },
+                        {
+                            "description": "Code 41: 1x (Cam pulse) sensor failure"
+                        },
+                        {
+                            "description": "Code 39: TCC off"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x09",
+                    "name": "MALFFLG5",
+                    "description": "Malfunction flag word 5",
+                    "bit_flags": [
+                        {
+                            "description": "Code 56: Not used"
+                        },
+                        {
+                            "description": "Code 55: ADU error"
+                        },
+                        {
+                            "description": "Code 54: Fuel pump relay malfunction"
+                        },
+                        {
+                            "description": "Code 53: System voltage high"
+                        },
+                        {
+                            "description": "Code 52: System voltage high-long test"
+                        },
+                        {
+                            "description": "Code 51: PROM error"
+                        },
+                        {
+                            "description": "Code 49: Not used"
+                        },
+                        {
+                            "description": "Code 48: Not used"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x0a",
+                    "name": "ISDSMP",
+                    "description": "IAC desired motor position",
+                    "unit": "Steps"
+                },
+                {
+                    "offset": "0x0b",
+                    "name": "DIACMW1",
+                    "description": "Idle air control non-volatile mode word 1",
+                    "bit_flags": [
+                        {
+                            "description": "Motor reset in progress"
+                        },
+                        {
+                            "description": "First driveaway flag for IAC kickdown logic",
+                            "0_value": "IACV cold offset has not been kicked down this start",
+                            "1_value": "IACV cold offset has been kicked down this start"
+                        },
+                        {
+                            "description": "Reset requested",
+                            "0_value": true,
+                            "1_value": false
+                        },
+                        null,
+                        {
+                            "description": "A stable idle with warm engine has occurred this run cycle - A/C off in drive"
+                        },
+                        {
+                            "description": "A stable idle with warm engine has occurred this run cycle - A/C on in drive"
+                        },
+                        {
+                            "description": "First pass of malfunction 36 has failed"
+                        },
+                        null
+                    ]
+                },
+                {
+                    "offset": "0x0c",
+                    "name": "DIACMW2",
+                    "description": "Idle air control non-volatile mode word 2",
+                    "bit_flags": [
+                        {
+                            "description": "Motor direction",
+                            "0_value": "Retract",
+                            "1_value": "Extend"
+                        },
+                        null,
+                        {
+                            "description": "Coil A state"
+                        },
+                        {
+                            "description": "Coil B state"
+                        },
+                        {
+                            "description": "Stepper motor on/off status",
+                            "0_value": "Off",
+                            "1_value": "On"
+                        },
+                        null,
+                        null,
+                        null
+                    ]
+                },
+                {
+                    "offset": "0x0d",
+                    "name": "DIACMW4",
+                    "description": "Mode word for idle control 2",
+                    "bit_flags": [
+                        {
+                            "description": "ETC once flag",
+                            "0_value": "Special IACB open loop cold ENG modifiers are disabled",
+                            "1_value": "Special IACB open loop cold ENG modifiers are enabled"
+                        },
+                        {
+                            "description": "ETC * K97_EDP"
+                        },
+                        {
+                            "description": "Throttle kicker active"
+                        },
+                        {
+                            "description": "Throttle kicker disable requested"
+                        },
+                        {
+                            "description": "Throttle kicked barometer disable request"
+                        },
+                        {
+                            "description": "Part 2 of diagnostic test to be run"
+                        },
+                        {
+                            "description": "Prop limiting authority being exercised"
+                        },
+                        {
+                            "description": "Add/subtract derivative ter to GPSFLOW",
+                            "0_value": "Subtract",
+                            "1_value": "add"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x0e",
+                    "name": "COOLDEGA",
+                    "description": "Normalized engine temperature",
+                    "unit": "°C",
+                    "conversion": ".75 * n - 40",
+                    "alt_conversion": "1.35 * n - 40"
+                },
+                {
+                    "offset": "0x0f",
+                    "name": "ADBAT",
+                    "description": "Battery voltage",
+                    "unit": "Volts",
+                    "conversion": "n / 10"
+                },
+                {
+                    "offset": "0x10",
+                    "name": "ADTHROT",
+                    "description": "Throttle position A/D value (0-5)",
+                    "unit": "Volts",
+                    "conversion": "n * 5 / 256"
+                },
+                {
+                    "offset": "0x11",
+                    "name": "ADMAP",
+                    "description": "Manifold Pressure",
+                    "unit": "kPa",
+                    "conversion": "n * 28.06 / 2.71",
+                    "alt_conversion": "n * 5 / 256"
+                },
+                {
+                    "offset": "0x12",
+                    "name": "ADO2A",
+                    "description": "Oxygen sensor variable",
+                    "unit": "mV",
+                    "conversion": "4.42 * n"
+                },
+                {
+                    "offset": "0x13",
+                    "name": "MWAF",
+                    "description": "Air fuel mode word",
+                    "bit_flags": [
+                        {
+                            "description": "PE delay time complete flag"
+                        },
+                        {
+                            "description": "VATS frequency test passed"
+                        },
+                        {
+                            "description": "BL. address change flag",
+                            "0_value": "No Change",
+                            "1_value": "Change"
+                        },
+                        {
+                            "description": "Delay BLM update",
+                            "0_value": "No",
+                            "1_value": "BL addr change"
+                        },
+                        {
+                            "description": "DE flag",
+                            "0_value": "DE inactive",
+                            "1_value": "DE active"
+                        },
+                        {
+                            "description": "PE flag",
+                            "0_value": "PE inactive",
+                            "1_value": "PE active"
+                        },
+                        {
+                            "description": "AE flag",
+                            "0_value": "AE inactive",
+                            "1_value": "AE active"
+                        },
+                        {
+                            "description": "Deliver Asynch. Pulse Flag"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x14",
+                    "name": "SDMW",
+                    "description": "Serial data mode word",
+                    "bit_flags": [
+                        {
+                            "description": "In mode 10 of ALDL (MSG ID=0xf5)"
+                        },
+                        {
+                            "description": "In mode 10 of ALDL (MSG ID=0xf4)"
+                        },
+                        {
+                            "description": "Transmission diagnostics disabled"
+                        },
+                        null,
+                        null,
+                        {
+                            "description": "Transmit overrun has occurred"
+                        },
+                        {
+                            "description": "Transmission in progress"
+                        },
+                        {
+                            "description": "Second byte transmission pending"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x15",
+                    "name": "MWBG",
+                    "description": "Minor loop mode flag",
+                    "bit_flags": [
+                        {
+                            "description": "Factory test entered"
+                        },
+                        {
+                            "description": "AE clamp flag",
+                            "0_value": "Clamp inactive",
+                            "1_value": "Clamp active"
+                        },
+                        {
+                            "description": "Skip malfunction 42 due to ALDL"
+                        },
+                        {
+                            "description": "First REF flag"
+                        },
+                        {
+                            "description": "Ignition off"
+                        },
+                        {
+                            "description": "High MAT conditions observed"
+                        },
+                        {
+                            "description": "First good M42A flag"
+                        },
+                        {
+                            "description": "Lock-in malfunction 42A",
+                            "0_value": "Not locked in",
+                            "1_value": "Locked in"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x16",
+                    "name": "MW1",
+                    "description": "Minor mode word 1",
+                    "bit_flags": [
+                        {
+                            "description": "Advance flag",
+                            "0_value": "Advance",
+                            "1_value": "Delay"
+                        },
+                        {
+                            "description": "Check engine light delay flag"
+                        },
+                        {
+                            "description": "Loop ran over 6.25 msec"
+                        },
+                        {
+                            "description": "Open TPS VE flag",
+                            "0_value": "Not open",
+                            "1_value": "Open"
+                        },
+                        {
+                            "description": "Run fuel flag",
+                            "0_value": "not running",
+                            "1_value": "Running"
+                        },
+                        {
+                            "description": "VE INT reset flag",
+                            "0_value": "No reset",
+                            "1_value": "Reset"
+                        },
+                        {
+                            "description": "Major loop EST monitor enable"
+                        },
+                        {
+                            "description": "Engine running flag",
+                            "0_value": "Not running",
+                            "1_value": "Running"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x17",
+                    "name": "MW2",
+                    "description": "Minor loop mode word 2",
+                    "bit_flags": [
+                        {
+                            "description": "Synchronous MAP sensor reads in effect"
+                        },
+                        {
+                            "description": "O/L idle flag for air switch engage at idle"
+                        },
+                        {
+                            "description": "Reference pulse occurred"
+                        },
+                        {
+                            "description": "Diagnostic switch in factory test position"
+                        },
+                        {
+                            "description": "Diagnostic switch in diagnostic position"
+                        },
+                        {
+                            "description": "REF pulse has occurred"
+                        },
+                        {
+                            "description": "Idle spark enabled"
+                        },
+                        {
+                            "description": "Idle flag"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x18",
+                    "name": "IODPORTC",
+                    "description": "IO port C",
+                    "bit_flags": [
+                        {
+                            "description": "A/C request"
+                        },
+                        {
+                            "description": "Brake switch",
+                            "0_value": "Brake not pressed",
+                            "1_value": "Brake pressed"
+                        },
+                        {
+                            "description": "PRNDL A",
+                            "lookup_table": [
+                                {
+                                    "name": "PRNDL",
+                                    "position": 0
+                                }
+                            ]
+                        },
+                        {
+                            "description": "PRNDL B",
+                            "lookup_table": [
+                                {
+                                    "name": "PRNDL",
+                                    "position": 1
+                                }
+                            ]
+                        },
+                        {
+                            "description": "PRNDL C",
+                            "lookup_table": [
+                                {
+                                    "name": "PRNDL",
+                                    "position": 2
+                                }
+                            ]
+                        },
+                        null,
+                        null,
+                        {
+                            "description": "Four wheel drive low",
+                            "0_value": "Off",
+                            "1_value": "On"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x19",
+                    "name": "CLCCMW",
+                    "description": "Major loop mode word 1",
+                    "bit_flags": [
+                        {
+                            "description": "Synchronous AE flag",
+                            "0_value": "Not synch AE",
+                            "1_value": "Synch AE"
+                        },
+                        {
+                            "description": "Slow rich/lean flag",
+                            "0_value": "Lean",
+                            "1_value": "Rich"
+                        },
+                        {
+                            "description": "Air management on",
+                            "0_value": "Off",
+                            "1_value": "On"
+                        },
+                        {
+                            "description": "Deceleration fuel cut off flag",
+                            "0_value": "DFCO off",
+                            "1_value": "DFCO on"
+                        },
+                        {
+                            "description": "Overspeed fuel cut off",
+                            "0_value": "Inactive",
+                            "1_value": "Active"
+                        },
+                        {
+                            "description": "Deceleration fuel cut off IAC fast filtered flag",
+                            "0_value": "Off",
+                            "1_value": "On"
+                        },
+                        {
+                            "description": "Non-volatile memory bombed"
+                        },
+                        {
+                            "description": "Has been in C.L. al least once since restart"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x1a",
+                    "name": "ADBARO",
+                    "description": "Raw A/D counts for barometer filter in transmission",
+                    "unit": "kPa",
+                    "conversion": "(n + 28.06) / 2.71",
+                    "alt_conversion": "(n * 5) / 256"
+                },
+                {
+                    "offset": "0x1b",
+                    "name": "LCCPMW",
+                    "description": "TCC & AC mode word",
+                    "bit_flags": [
+                        null,
+                        {
+                            "description": "Spk. correction due to MAT is negative"
+                        },
+                        null,
+                        {
+                            "description": "A/C AE enabled"
+                        },
+                        {
+                            "description": "ACPSCT flag (A/C on)"
+                        },
+                        {
+                            "description": "Park/neutral"
+                        },
+                        null,
+                        {
+                            "description": "CCP solenoid energized"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x1c",
+                    "name": "MWAF1",
+                    "description": "Air fuel mode word 1",
+                    "bit_flags": [
+                        {
+                            "description": "Deceleration fuel cut-off TPS AE flag"
+                        },
+                        {
+                            "description": "Learn control enable flag",
+                            "0_value": "Disabled",
+                            "1_value": "Enabled"
+                        },
+                        {
+                            "description": "Low battery"
+                        },
+                        {
+                            "description": "A/F decay INT done flag for cold park to drive"
+                        },
+                        {
+                            "description": "Asynchronous pulse flag"
+                        },
+                        {
+                            "description": "Closed loop for O/L idle condition"
+                        },
+                        {
+                            "description": "Rich/lean flag",
+                            "0_value": "Lean",
+                            "1_value": "Rich"
+                        },
+                        {
+                            "description": "Closed loop flag",
+                            "0_value": "Not closed",
+                            "1_value": "Closed"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x1d",
+                    "name": "TCCMODE",
+                    "description": "TCC mode word flags",
+                    "bit_flags": [
+                        {
+                            "description": "TCC is being forced off"
+                        },
+                        {
+                            "description": "TCC enable solenoid valid"
+                        },
+                        {
+                            "description": "Low threshold for COPETCC selected"
+                        },
+                        {
+                            "description": "Use hysteresis for vehicle speed"
+                        },
+                        {
+                            "description": "TCC is in release mode slipping"
+                        },
+                        {
+                            "description": "TCC is in lock-adjust mode"
+                        },
+                        {
+                            "description": "TCC is being applied"
+                        },
+                        {
+                            "description": "Negative slip recently prevents apply"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x1e",
+                    "name": "FILTMPH",
+                    "description": "Filtered MPH variable",
+                    "unit": "kmh",
+                    "conversion": "n * 1.609",
+                    "alt_conversion": "n"
+                },
+                {
+                    "offset": "0x1f",
+                    "name": "IODPORTB",
+                    "description": "Solenoid combination for digital EGR",
+                    "bit_flags": [
+                        {
+                            "description": "Shift A",
+                            "lookup_table": [
+                                {
+                                    "name": "Shift",
+                                    "position": 0
+                                }
+                            ]
+                        },
+                        {
+                            "description": "Shift B",
+                            "lookup_table": [
+                                {
+                                    "name": "Shift",
+                                    "position": 1
+                                }
+                            ]
+                        },
+                        {
+                            "description": "IAC coil A"
+                        },
+                        {
+                            "description": "IAC coil B"
+                        },
+                        {
+                            "description": "IAC enable"
+                        },
+                        {
+                            "description": "Force motor enable"
+                        },
+                        {
+                            "description": "REF IRQ CLR"
+                        },
+                        {
+                            "description": "M/CLR"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x20",
+                    "name": "PPSWVLT",
+                    "description": "Battery voltage from PPSW",
+                    "unit": "Volts",
+                    "conversion": "n / 10"
+                },
+                {
+                    "offset": "0x21",
+                    "name": "NTRPMX",
+                    "description": "RPM variable",
+                    "unit": "RPM",
+                    "conversion": "n * 25"
+                },
+                {
+                    "offset": "0x22",
+                    "name": "OLDRPFER",
+                    "description": "Last minor loop reference period from ECU",
+                    "unit": "ms",
+                    "conversion": "n * 65.536"
+                },
+                {
+                    "offset": "0x23",
+                    "name": "OLDRPFER",
+                    "description": "Last minor loop reference period from ECU",
+                    "unit": "ms",
+                    "conversion": "n * 65.536"
+                },
+                {
+                    "offset": "0x24",
+                    "name": "EGRDC",
+                    "description": "EGR Duty Cycle",
+                    "unit": "%",
+                    "conversion": "n / 2.56"
+                },
+                {
+                    "offset": "0x25",
+                    "name": "MW3",
+                    "description": "Miscellaneous mode word",
+                    "bit_flags": [
+                        {
+                            "description": "CPI/FPI single fire flag",
+                            "0_value": "Not single fire",
+                            "1_value": "Single fire"
+                        },
+                        {
+                            "description": "Single fire first time"
+                        },
+                        {
+                            "description": "Refresh ram in background"
+                        },
+                        {
+                            "description": "Powerdown in progress"
+                        },
+                        {
+                            "description": "High battery voltage"
+                        },
+                        {
+                            "description": "Deceleration fuel cut-off spark filter flag"
+                        },
+                        {
+                            "description": "Start-up spark filter flag",
+                            "0_value": "Not done",
+                            "1_value": "Done"
+                        },
+                        {
+                            "description": "Transition flag",
+                            "0_value": "Transition inactive",
+                            "1_value": "Transition active"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x26",
+                    "name": "TIMEENG",
+                    "description": "Engine running time",
+                    "unit": "Seconds"
+                },
+                {
+                    "offset": "0x27",
+                    "name": "TIMEENG",
+                    "description": "Engine running time",
+                    "unit": "Seconds"
+                },
+                {
+                    "offset": "0x28",
+                    "name": "DESSPD",
+                    "description": "Desired idle RPM",
+                    "conversion": "n * 12.5"
+                },
+                {
+                    "offset": "0x29",
+                    "name": "NDTHRPOS",
+                    "description": "Throttle position for engine",
+                    "unit": "%",
+                    "conversion": "n / 2.56"
+                },
+                {
+                    "offset": "0x2a",
+                    "name": "MW4",
+                    "description": "Mode word 4",
+                    "bit_flags": [
+                        {
+                            "description": "High ESC activity flag"
+                        },
+                        {
+                            "description": "Zero activity flag"
+                        },
+                        {
+                            "description": "Block learn closed throttle position flag",
+                            "0_value": "Throttle not closed",
+                            "1_value": "Throttle closed"
+                        },
+                        {
+                            "description": "Variable tuning control enabled"
+                        },
+                        {
+                            "description": "A/C disabled due to high RPM"
+                        },
+                        {
+                            "description": "A/C anticipated to be on"
+                        },
+                        {
+                            "description": "Converter overtemp detected"
+                        },
+                        {
+                            "description": "Quasi closed loop enabled"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x2b",
+                    "name": "MW5",
+                    "description": "Mode word 5",
+                    "bit_flags": [
+                        {
+                            "description": "Actual engine speed over desired speed"
+                        },
+                        {
+                            "description": "Delatch active"
+                        },
+                        {
+                            "description": "Shift light on"
+                        },
+                        {
+                            "description": "High RPM indicated by transmission abuse logic"
+                        },
+                        {
+                            "description": "Power steering cramp sag/stall saver active"
+                        },
+                        {
+                            "description": "A-injectors fired at first reference pulse flag"
+                        },
+                        {
+                            "description": "single fire alt exist is desired"
+                        },
+                        null
+                    ]
+                },
+                {
+                    "offset": "0x2c",
+                    "name": "SAREFFNL",
+                    "description": "Final value of SAREF",
+                    "unit": "Degrees",
+                    "conversion": "n * 90 / 256"
+                },
+                {
+                    "offset": "0x2d",
+                    "name": "SAREFFNL",
+                    "description": "Final value of SAREF",
+                    "unit": "Degrees",
+                    "conversion": "n * 90 / 256"
+                },
+                {
+                    "offset": "0x2e",
+                    "name": "PA2OLD",
+                    "description": "ECP PA2 counter value from last minor loop"
+                },
+                {
+                    "offset": "0x2f",
+                    "name": "PA2OLD",
+                    "description": "ECP PA2 counter value from last minor loop"
+                },
+                {
+                    "offset": "0x30",
+                    "name": "INT",
+                    "description": "Closed loop integrator value"
+                },
+                {
+                    "offset": "0x31",
+                    "name": "DESTPS",
+                    "description": "Desired governing TPS value to be output",
+                    "unit": "%",
+                    "conversion": "n / 2.56"
+                },
+                {
+                    "offset": "0x32",
+                    "name": "ALDLCNTR",
+                    "description": "ALDL rich/lean change counter"
+                },
+                {
+                    "offset": "0x33",
+                    "name": "LEGRMW",
+                    "description": "EGR & spark mode word",
+                    "bit_flags": [
+                        {
+                            "description": "EGR diagnostic INT reset flag"
+                        },
+                        {
+                            "description": "Burst knock delay active"
+                        },
+                        {
+                            "description": "EGR HI VAC hysteresis flag"
+                        },
+                        {
+                            "description": "AE first time flag"
+                        },
+                        {
+                            "description": "EGR MAP hysteresis flag"
+                        },
+                        {
+                            "description": "EGR TPS hysteresis flag"
+                        },
+                        {
+                            "description": "EGR MPH hysteresis flag"
+                        },
+                        {
+                            "description": "EGR on condition"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x34",
+                    "name": "GOVMW",
+                    "description": "Electronic governor mode word",
+                    "bit_flags": [
+                        {
+                            "description": "Currently in RPM governing mode"
+                        },
+                        {
+                            "description": "Governor lead more anticipating RPM governing"
+                        },
+                        {
+                            "description": "RPM overspeed flag",
+                            "0_value": "No overspeed",
+                            "1_value": "Overspeed"
+                        },
+                        {
+                            "description": "Governor overspeed light on"
+                        },
+                        {
+                            "description": "RPM lead TPS return mode"
+                        },
+                        null,
+                        {
+                            "description": "MPH overspeed flag",
+                            "0_value": "No overspeed",
+                            "1_value": "Overspeed"
+                        },
+                        {
+                            "description": "Currently in MPH governing mode"
+                        }
+                    ]
+                },
+                {
+                    "offset": "0x35",
+                    "name": "BLMCELL",
+                    "description": "Block learn multiplier cell"
+                },
+                {
+                    "offset": "0x36",
+                    "name": "BLM",
+                    "description": "Block learn multiplier"
+                },
+                {
+                    "offset": "0x37",
+                    "name": "NOCKRTD",
+                    "description": "Knock delay",
+                    "unit": "Degrees",
+                    "conversion": "(n * 45) / 256"
+                },
+                {
+                    "offset": "0x38",
+                    "name": "BPW",
+                    "description": "Base pulse width",
+                    "unit": "ms",
+                    "conversion": "n / 65.536"
+                },
+                {
+                    "offset": "0x39",
+                    "name": "BPW",
+                    "description": "Base pulse width",
+                    "unit": "ms",
+                    "conversion": "n / 65.536"
+                },
+                {
+                    "offset": "0x3a",
+                    "name": "DESGRPOS",
+                    "description": "Desired EGR command",
+                    "unit": "%",
+                    "conversion": "n / 2.56"
+                },
+                {
+                    "offset": "0x3b",
+                    "name": "ACEGRPOS",
+                    "description": "Linear EGR actual pintle position",
+                    "unit": "%",
+                    "conversion": "n / 2.56"
+                },
+                {
+                    "offset": "0x3c",
+                    "name": "ADEGRP",
+                    "description": "Linear EGR pintle position raw A/D counts"
+                },
+                {
+                    "offset": "0x3d",
+                    "name": "PURGEDC",
+                    "description": "Purge duty cycle value",
+                    "unit": "%",
+                    "conversion": "n / 2.56"
+                },
+                {
+                    "offset": "0x3e",
+                    "name": "MATDEGA",
+                    "description": "Non-defaulted MAT",
+                    "unit": "°C",
+                    "conversion": "(0.75 * n) - 40",
+                    "alt_conversion": "(1.35 * n) - 40"
+                }
+            ],
+
+            "lookup_tables": [
+                {
+                    "name": "PRNDL"
+                }
+            ]
+        }
+    ]
+}

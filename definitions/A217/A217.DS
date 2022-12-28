@@ -1,0 +1,428 @@
+
+
+
+                        DATA STREAM A217  SPECIFICATION
+
+
+
+..PAGE
+       SPECIFICATIONS FOR DATA STREAM INFORMATION
+       ------------------------------------------
+            PCM-6 WITH 4L60E TRANSMISSION
+
+       ENGINE   USAGE:
+                      L03  TBI   5.0L    94  VIN = H   C,K,G
+                      L05  TBI   5.7L    94  VIN = K   C,K,G
+                      L35  CPI   4.3L    94  VIN = W   S,T,M,L
+                      LB4  TBI   4.3L    94  VIN = Z   G,M,L,S,T,C,K
+                      LB4  TBI   4.3L    94  VIN = Z   C,K   MANUAL TRANS.
+                   *  L03    TBI  5.0L   95  VIN=H   C,K,G
+                   *  L05    TBI  5.7L   95  VIN=K   C,K,G
+                   *  L35    CPI  4.3L   95  VIN=W   S,T,M,L
+                   *  LB4    TBI  4.3L   95  VIN=Z   G,M,L,S,T,C,K
+
+
+
+
+       DATA PIN  : READ DATA ON PIN "M" OF ALDL CONNECTOR
+
+       BAUD RATE : 8192 BAUD - BI-DIRECTIONAL
+
+
+..PAGE
+        MODE 0 (RETURN TO NORMAL MODE)
+                ALDL REQUEST:
+                - MESSAGE ID     = $F4
+                - MESSAGE LENGTH = $56
+                - MODE           = $00
+                - SUM CHECK
+
+                THE PCM WILL RESPOND WITH THE FOLLOWING MESSAGE:
+                - MESSAGE ID     = $F4
+                - MESSAGE LENGTH = $56
+                - MODE           = $00
+                - SUM CHECK
+
+        MODE 1 (TRANSMIT FIXED DATA STREAM)
+                ALDL REQUEST:
+                - MESSAGE ID     = $F4
+                - MESSAGE LENGTH = $57
+                - MODE           = $01
+                - MESSAGE        = $00
+                - SUM CHECK
+
+                THE PCM WILL RESPOND WITH THE FOLLOWING MESSAGE:
+                - MESSAGE ID     = $F4
+                - MESSAGE LENGTH = $95
+                - MODE           = $01
+                - DATA BYTE 1
+                  .
+                  .
+                - DATA BYTE 63
+                - SUM CHECK
+
+        MODE 10 (CLEAR MALFUNCTION CODES)
+                ALDL REQUEST:
+                - MESSAGE ID     = $F4
+                - MESSAGE LENGTH = $56
+                - MODE           = $0A
+                - CHECKSUM
+
+
+                THE PCM WILL RESPOND WITH THE FOLLOWING MESSAGE:
+                - MESSAGE ID     = $F4
+                - MESSAGE LENGTH = $56
+                - MODE           = $0A
+                - SUM CHECK
+
+
+
+..PAGE
+..HEAD02L ALDL DATA LIST
+..HEAD03L NUMBER OF DATA WORDS - 63
+..HEAD04L ALDL MODE 1 DATA LIST
+WORD #   DATA NAME    DESCRIPTION
+
+  1      PROMIDA      FIRST PROM I.D. WORD (MSB)
+  2      PROMIDA+1    SECOND PROM I.D. WORD (LSB)
+                        ID = N
+  3      NVMW         NON-VOLITALE MODE WORD
+          0            02 SENSOR READY FLAG            1 = READY
+          1            CLOSED LOOP TIMER O.K. FLAG     1 = TIMER O.K.
+          2            1 = RAM REFRESH ERROR HAS OCCURRED
+          3            IMPROPER SHUTDOWN FLAG          1 = IMPRO    0 = PROPER
+          4            HOT RESTART PROCEEDING FLAG
+          5            NOT USED
+          6            NOT USED
+          7            MALF 42 FAIL FLAG (EST. MONITOR)
+  4      DIACMW3      MODE WORD FOR IDLE CONTROL
+          0            1 = A/C ON
+          1            1 = DRIVE          0 = P/N
+          2            1 = CONDITIONS FOR C/L ON RPM HAVE BEEN MET
+                           CONDITIONS ARE TPS CLOSED AND LOW MPH.
+          3            1 = C/L ON RPM ENABLED
+                           CONDITIONS MET LONG ENOUGH OR LOW RPM ON A/T VEH.
+          4            1 = STALL SAVER
+          5            1 = POWER STEERING PRESSURE LOAD ACTIVE
+          6            1 = THROTTLE KICKER HAS BEEN DISABLED ONCE
+          7            1 = IDLE RPM TO HIGH (SIGN)
+  5      ISSPMP       IAC PRESENT MOTOR POSITION
+                       N = IAC MOTOR STEPS
+  6      MALFFLG1     MALF FLAG WORD 1
+          0            CODE 21  THROTTLE POSITION HIGH
+          1            CODE 19  NOT USED
+          2            CODE 18  NOT USED
+          3            CODE 17  NOT USED
+          4            CODE 16  2002 PPM VEH. SPEED SENSOR FAILURE
+          5            CODE 15  COOLANT SENSOR LOW TEMPERATURE
+          6            CODE 14  COOLANT SENSOR HIGH TEMPERATURE
+          7            CODE 13  OXYGEN SENSOR
+  7      MALFFLG2     MALF FLAG WORD 2
+          0            CODE 29  NOT USED
+          1            CODE 28  PRESSURE  SWITCH MANIFOLD
+          2            CODE 27  NOT USED
+          3            CODE 26  NOT USED
+          4            CODE 25  MAT SENSOR HIGH
+          5            CODE 24  VEHICLE SPEED SENSOR
+          6            CODE 23  MAT SENSOR LOW
+          7            CODE 22  THROTTLE POSITION LOW
+  8      MALFFLG3     MALF FLAG WORD 3
+          0            CODE 38  BRAKE OFF
+          1            CODE 37  BRAKE ON
+          2            CODE 36  IAC THROTTLE KICKER FAILURE
+          3            CODE 35  IAC FAILURE
+          4            CODE 34  MAP SENSOR LOW
+          5            CODE 33  MAP SENSOR HIGH
+          6            CODE 32  EGR FAILURE
+          7            CODE 31  GOVERNOR FAILURE
+  9      MALFFLG4     MALF FLAG WORD 4
+          0            CODE 47  NOT USED
+          1            CODE 46  VATS FAILURE
+          2            CODE 45  OXYGEN SENSOR RICH
+          3            CODE 44  OXYGEN SENSOR LEAN
+          4            CODE 43  ESC FAILURE
+          5            CODE 42  EST. MONITOR
+          6            CODE 41  1X (CAM PULSE) SENSOR FAILURE
+          7            CODE 39  TCC OFF
+ 10      MALFFLG5     MALF FLAG WORD 5
+          0            CODE 56  NOT USED
+          1            CODE 55  ADU ERROR
+          2            CODE 54  FUEL PUMP RELAY MALFUNCTION
+          3            CODE 53  SYSTEM VOLTAGE HIGH
+          4            CODE 52  SYSTEM VOLTAGE HIGH-LONG TEST
+          5            CODE 51  PROM ERROR
+          6            CODE 49  NOT USED
+          7            CODE 48  NOT USED
+ 11      ISDSMP       IAC DESIRED MOTOR POSITION
+                       N = IAC MOTOR STEPS
+ 12      DIACMW1      IDLE AIR CONTROL NV MODE WORD
+          0            1 = MOTOR RESET IN PROGRESS
+          1            FIRST DRIVEAWAY FLAG FOR IAC KICKDOWN LOGIC
+                       1 = IACV COLD OFFSET HAS BEEN KICKED DOWN THIS START
+          2            0 = RESET REQUESTED
+          3            NOT USED
+          4            1 = A STABLE IDLE WITH WARM ENGINE HAS OCCURRED THIS RUN
+                       CYCLE - A/C OFF IN DRIVE
+          5            1 = A STABLE IDLE WITH WARM ENGINE HAS OCCURRED THIS RUN
+                       CYCLE - A/C ON IN DRIVE
+          6            1 = FIRST PASS OF MALF 36 HAS FAILED
+          7            NOT USED
+ 13      DIACMW2      IDLE AIR CONTROL NV MODE WORD
+          0            MOTOR DIRECTION                    1=EXTEND 0=RETRACT
+          1            NOT USED
+          2            COIL A STATE
+          3            COIL B STATE
+          4            STEPPER MOTOR ON/OFF STATUS       1=ON     0=OFF
+          5            NOT USED
+          6            NOT USED
+          7            NOT USED
+ 14      DIACMW4      MODE WORD FOR IDLE CONTROL
+          0            1 = ETC ONCE FLAG
+                       1= SPECIAL IACV OPEN LOOP COLD ENG MODIFIERS ARE DISABLE
+          1            1 = ETC * K97_EDP
+          2            1 = THROTTLE KICKER ACTIVE
+          3            1 = THROTTLE KICKER DISABLE REQUESTED
+          4            1 = THROTTLE KICKER BARO DISABLE REQUEST
+          5            1 = PART 2 OF DIAGNOSTIC TEST TO BE RUN
+          6            1 = PROP LIMITING AUTHORITY BEING EXERCISED
+          7            1 = ADD DERIVATIVE TERM TO GPSFLOW
+                       0 = SUBTRACT DEVIVTIVE TERM FROM GPSFLOW
+ 15      COOLDEGA     NORMALIZED ENGINE TEMPERATURE        nondefaulted
+                        DEGREES C = .75N - 40
+                        DEGREES F = 1.35N - 40
+ 16      ADBAT        BATTERY VOLTAGE A/D VALUE
+                        VOLTAGE = N/10
+ 17      ADTHROT      THROTTLE POSITION A/D VALUE
+                        VOLTS = N*5/256
+ 18      ADMAP        MANIFOLD PRESSURE A/D VALUE  (updated in 100ms loop)
+                        VOLTS = N*5/256
+                        kpa = (N + 28.06)/2.71
+ 19      ADO2A        OXYGEN SENSOR VARIABLE
+                        mV = 4.42N
+ 20      MWAF         AIR FUEL MODE WORD
+          0            PE DELAY TIME COMPLETE FLAG
+          1            1 = VATS FREQUENCY TEST PASSED
+          2            BL. ADDRESS CHANGE FLAG              1=CHANGE
+          3            DELAY BLM UPDATE                    1=BL ADDR CHANGE
+          4            DE FLAG                             1=DE IS ACTIVE
+          5            PE FLAG                             1=PE IS ACTIVE
+          6            AE FLAG                             1=AE IS ACTIVE
+          7            DELIVER ASYNCH. PULSE FLAG
+ 21      SDMW         SERIAL DATA MODE WORD
+          0            1 = IN MODE 10 OF ALDL (MESSAGE ID=$F5)
+          1            1 = IN MODE 10 OF ALDL (MESSAGE ID=$F4)
+          2            1 = TRANSMISSION DIAGNOSTICS DISABLED
+          3            NOT USED
+          4            NOT USED
+          5            1 = TRANSMIT OVERRUN HAS OCCURRED
+          6            1 = TRANSMISSION IN PROGRESS
+          7            1 = SECOND BYTRE TRANSMISSION PENDING
+ 22      MWBG         MINOR LOOP MODE FLAG
+          0            FACTORY TEST ENTERED
+          1            AE CLAMP FLAG                        1=CLAMP IS ACTIVE
+          2            SKIP MALF 42 DUE TO ALDL
+          3            1st REF FLAG                         1=REFERENCE PERIOD
+          4            1=IGNITION OFF
+          5            1=HIGH MAT CONDITIONS OBSERVED
+          6            FIRST GOOD M42A FLAG
+          7            LOCK-IN MALF 42A                    1=LOCKED IN
+ 23      MW1          MINOR MODE WORD 1
+          0            ADVANCE FLAG                        0=ADV.  1=RETARD
+          1            CHECK ENGINE LIGHT DELAY FLAG
+          2            LOOP RAN OVER 6.25 MSEC
+          3            OPEN TPS VE FLAG                    1=OPEN
+          4            RUN FUEL FLAG                       1=RUNNING
+          5            VE INT RESET FLAG                   1=RESET
+          6            MAJOR LOOP EST MONITOR ENABLE
+          7            ENGINE RUNNING FLAG                 1=RUNNING
+ 24      MW2          MINOR LOOP MODE WORD 2
+          0            SYNCHRONOUS MAP SENSOR READS IN EFFECT
+          1            O/L IDLE FLAG FOR AIR SWITCH ENGAGE AT IDLE
+          2            REFERENCE PULSE OCCURRED
+          3            1 = DIAGNOSTIC SWITCH IN FACTORY TEST POSITION
+          4            1 = DIAGNOSTIC SWITCH IN DIAGNOSTIC POSITION
+          5            1 = REF PULSE HAS OCCURRED
+          6            1 = IDLE SPARK ENABLED
+          7            IDLE FLAG
+ 25      IODPORTC     I/O PORT C
+          0            1 = A/C REQUEST
+          1            1 = BRAKE SWITCH          (1=BRAKE PRESSED)
+          2            RANGE 1                   SEE PRNDL TABLE
+          3            RANGE 2                   SEE PRNDL TABLE
+          4            RANGE 3                   SEE PRNDL TABLE
+          5            NOT USED
+          6            NOT USED
+          7            FOUR WHEEL DRIVE LOW      1=ON
+
+  PRNDL TABLE:
+
+                 RANGE1    RANGE2  RANGE3  GEAR
+                 ------------------------------
+                   0         1       1     LOW
+                   1         1       1     DRIVE2
+                   1         1       0     DRIVE3
+                   1         0       0     DRIVE4
+                   1         0       1     P/N
+                   0         0       1     REVERSE
+
+ 26      CLCCMW       MAJOR LOOP MODE WORD 1
+          0            SYNCHRONOUS AE FLAG               1=SYNCH AE
+          1            SLOW RICH/LEAN FLAG               1=RICH
+          2            AIR MANAGEMENT ON                 1=ON
+          3            DECEL FUEL CUT-OFF FLAG           1=DFCO
+          4            1 = OVERSPEED FUEL SHUTOFF
+          5            DFCO IAC FAST FILTERED FLAG
+          6            1 = N.V. MEMORY BOMBED
+          7            1 = HAS BEEN IN C.L AT LEAST ONCE SINCE RESTART
+ 27      ADBARO       RAW A/D COUNTS FOR BARO FILT IN TRANS
+                        VOLTS = N*5/256
+                        kpa = (N + 28.06)/2.71
+ 28      LCCPMW       TCC & A/C MODE WORD
+          0            NOT USED
+          1            1 = SPK. CORRECTION DUE TO MAT IS NEGATIVE
+          2            NOT USED
+          3            1 = A/C AE ENABLED
+          4            ACPSCT FLAG (A/C ON)
+          5            PARK/NEUTRAL  (use range 1,2,3 to determine p/n status)
+          6            NOT USED
+          7            1 = CCP SOLENOID ENERGIZED
+ 29      MWAF1        AIR FUEL MODE WORD 1
+          0            DFCO TPS AE FLAG
+          1            LEARN CONTROL ENABLE FLAG      1=ENABLE
+          2            1 = LOW BATTERY
+          3            A/F DECAY INT DONE FLAG FOR COLD PRK TO DRIVE
+          4            ASYNCHRONOUS PULSE FLAG (AP FLAG)
+          5            CLOSED LOOP FOR O/L IDLE CONDITION
+          6            RICH-LEAN FLAG                 1=RICH  0=LEAN
+          7            CLOSED LOOP FLAG               1=CLOSED
+ 30      TCCMODE      TCC MODE WORD FLAGS
+          0            1 = TCC IS BEING FORCED OFF
+          1            1 = TCC ENABLE SOLENOID VALID
+          2            1 = LOW THRESHOLD FOR COPETCC SELECTED
+          3            1 = USE HYST FOR VEH. SPD.
+          4            1 = TCC IS IN RELEASE MODE SLIPPING
+          5            1 = TCC IS IN LOCK-ADJUST MODE
+          6            1 = TCC IS BEING APPLIED
+          7            1 = NEGATIVE SLIP RECENTLY PREVENTS APPLY
+ 31      FILTMPH      FILTERED MPH VARIABLE
+                        MPH = N
+                        KPH = 1.61N
+ 32      IODPORTB     SOLENOID COMBINATION FOR DIGITAL EGR
+          0            SHIFT A                           SEE TABLE
+          1            SHIFT B                           SEE TABLE
+          2            IAC COIL A
+          3            IAC COIL B
+          4            IAC ENABLE                        1=ENABLE
+          5            FORCE MOTOR ENABLE                1=ENABLE
+          6            REF IRQ CLR
+          7            M/CLR
+
+
+                      SHIFT B  SHIFT A  GEAR
+                      ----------------------
+                        0        0       3RD
+                      ----------------------
+                        0        1       4TH
+                      ----------------------
+                        1        0       2ND
+                      ----------------------
+                        1        1       1ST
+                      ----------------------
+
+
+ 33      PPSWVLT      BATTERY VOLTAGE FROM PPSW A/D COUNTS
+                        VOLTS = N/10
+ 34      NTRPMX       RPM VARIABLE USED FOR TABLE F1 EXTENSION LOGIC
+                        RPM = N * 25
+ 35      OLDRFPER     LAST MINOR LOOP REFERENCE PERIOD FROM ECU (MSB)
+ 36      OLDRFPER+1   LAST MINOR LOOP REFERENCE PERIOD FROM ECU (LSB)
+                        MSEC = N/65.536
+                        RPM = 65.536* # OF CYLINDER/N
+                          6 CYL = 20  8 CYL = 15
+ 37      EGRDC        EGR DUTY CYCLE
+                        % = N/2.56
+ 38      MW3          MISCELLANEOUS MODE WORD
+          0            CPI/PFI SINGLE FIRE FLAG          1=SINGLE FIRE
+          1            SINGLE FIRE FIRST TIME            1=FIRST TIME
+          2            REFRESH RAM IN BACK GROUND        1=YES
+          3            1 = POWERDOWN IN PROGRESS
+          4            1 = HIGH BATTERY VOLTAGE
+          5            DFCO SPARK FILTER FLAG
+          6            START-UP SPARK FILTER DONE FLAG  1 = DONE
+          7            TRANSITION FLAG                  1=TRANSITION ACTIVE
+ 39      TIMEENG      ENGINE RUNNING TIME,SECONDS (MSB)
+ 40      TIMEENG+1    ENGINE RUNNING TIME,SECONDS (LSB)
+                        SECONDS = N
+ 41      DESSPD       DESIRED IDLE RPM
+                        RPM = 12.5N
+ 42      NDTHRPOS     THROTTLE POSITION FOR ENGINE
+                        % = N/2.56
+ 43      MW4          MODE WORD 4
+          0            1 = HIGH ESC ACTIVITY FLAG
+          1            1 = ZERO ACTIVITY FLAG
+          2            BLOCK LEARN CLOSED THROTTLE POSITION FLAG  1=THROT CLOSED
+          3            1 = VARIABLE  TUNING CONTROL ENABLED
+          4            1 = A/C DISABLED DUE TO HIGH RPM
+          5            1 = A/C ANTICIPATED TO BE ON
+          6            1 = CONVERTER OVERTEMP DETECTED
+          7            1 = QUASI CLOSED LOOP ENABLED
+ 44      MW5          MODE WORD 5
+          0            1 = ACTUAL ENGINE SPEED OVER DESIRED SPEED
+          1            1 = DELATCH ACTIVE
+          2            1 = SHIFT LIGHT ON
+          3            1 = HIGH RPM INDICATED BY TRANS. ABUSE LOGIC
+          4            1 = POWER STEERING CRAMP SAG/STALL SAVER ACTIVE
+          5            1 = A-INJECTORS FIRED AT FIRST REF. PULSE FLAG
+          6            1 = SINGLE FIRE ALT EXIT IS DESIRED
+          7            NOT USED
+ 45      SAREFFNL     FINAL VALUE OF SAREF(MSB)
+ 46      SAREFFNL     FINAL VALUE OF SAREF(LSB)
+                        DEGREES = N*90/256
+ 47      PA2OLD       ECU PA2 COUNTER VALUE FROM LAST MINOR LOOP(MSB)
+                        N = COUNTS
+ 48      PA2OLD+1     ECU PA2 COUNTER VALUE FROM LAST MINOR LOOP(LSB) NOT USED
+ 49      INT          CLOSED LOOP INTEGRATOR VALUE
+                        N = INTEGRATOR COUNTS
+ 50      DESTPS       DESIRED GOVERNING TPS VALUE TO BE OUTPUT
+                        % = N/2.56
+ 51      ALDLCNTR     ALDL RICH/LEAN CHANGE COUNTER
+                        N = COUNTS
+ 52      LEGRMW       EGR & SPARK MODE WORD
+          0            EGR DIAG INT RESET FLAG
+          1            1 = BURST KNOCK RETARD ACTIVE
+          2            EGR HI VAC HYST FLAG
+          3            AE FIRST TIME FLAG
+          4            EGR MAP HYST FLAG
+          5            EGR TPS HYST FLAG
+          6            EGR MPH HYST FLAG
+          7            EGR ON CONDITION
+ 53      GOVMW        ELECTONIC GOVERNOR MODE WORD
+          0            1 = CURRENTLY IN RPM GOVERNING MODE
+          1            1 = GOV LEAD MODE ANTICIPATING RPM GOVERNING
+          2            RPM OVERSPEED FLAG     1 = RPM OVERSPEED
+          3            GOVERNOR OVER SPEED LIGHT ON
+          4            1 = RPM LEAD TPS RETURN MODE
+          5            NOT USED
+          6            MPH OVERSPEED FLAG     1 = MPH OVERSPEED
+          7            1 = CURRENTLY IN MPH GOVERNING MODE
+ 54      BLMCELL      BLOCK LEARN MULTIPLIER CELL
+                        N = BLOCK LEARN CELL
+ 55      BLM          BLOCK LEARN MULTIPLIER
+                        N = MULTIPLIER
+ 56      NOCKRTD      KNOCK RETARD
+                        DEGREES = 45N/256
+ 57      BPW          BASE PULSE WIDTH(MSB)
+ 58      BPW+1        BASE PULSE WIDTH(LSB)
+                        mSEC = N/65.536
+ 59      DSEGRPOS     DESIRED EGR COMMAND
+                        % = N/2.56
+ 60      ACEGRPOS     LINEAR EGR ACTUAL PINTLE POSITION
+                        % = N/2.56
+ 61      ADEGRP       LINEAR EGR PINTLE POSITION RAW A/D COUNTS
+                        N = EGR POSITION A/D COUNTS
+ 62      PURGEDC      PURGE DUTY CYCLE VALUE
+                        % = N/2.56
+ 63      MATDEGA      NON DEFAULTED MAT
+                        DEGREES C = .75N - 40
+                        DEGREES F = 1.35N - 40
+
