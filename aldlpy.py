@@ -7,7 +7,6 @@ import argparse
 import time
 import serial
 import os
-import struct
 import json
 from bitarray import bitarray
 from simpleeval import simple_eval
@@ -15,18 +14,18 @@ from simpleeval import simple_eval
 #### Global variables ##########################################################
 log_filetype_version = 1
 log_time = time.localtime()
-log_file = os.path.join(os.path.abspath(os.getcwd()), time.strftime("%Y-%m-%d-%H-%M-%S", log_time), ".ecmlog")
+log_file = os.path.join(os.path.abspath(os.getcwd()), "dumps/recieve", time.strftime("%Y-%m-%d-%H-%M-%S", log_time) + ".ecmlog")
 
 log_file_increment = 0
 while True:
-    if os.path.exists(log_location):
+    if os.path.exists(log_file):
         log_file_increment += 1
-        log_location = os.path.join(os.path.abspath(os.getcwd()), time.strftime(f"%Y-%m-%d-%H-%M-%S{(str(log_file_increment))}", log_time), ".ecmlog")
+        log_file = os.path.join(os.path.abspath(os.getcwd()), "dumps/recieve", time.strftime(f"%Y-%m-%d-%H-%M-%S{(str(log_file_increment))}", log_time) + ".ecmlog")
     else:
         break
 
 with open(log_file, "wb") as file:
-    file.write(struct.pack("<H", log_filetype_version))
+    file.write(log_filetype_version.to_bytes(2, "little"))
 
 def parse_data(data_definition, transmit_mode, msg_body):
     mode_definition = list(filter(lambda d: int(d['transmit_mode'], 16) == transmit_mode, data_definition["transmit_modes"]))
@@ -137,11 +136,20 @@ def print_formatted(msg):
         print("   {0:3d}:  {1:#04x}  {2:04b} {3:04b}  {1:3d}".format(i,
             msg[2][i], msg[2][i] >> 4, msg[2][i] >> 0x0f))
 
-def message_log(time, data):
+def message_log(message_time, message_id, message_length, message_mode, message, checksum):
     message_chunk = bytearray()
+    message_time = int(message_time * 1000)
 
-    
-    pass
+    message_chunk += message_time.to_bytes(8, "little")
+    message_chunk += message_id.to_bytes(1, "little")
+    message_chunk += message_length.to_bytes(1, "little")
+    message_chunk += message_mode.to_bytes(1, "little")
+    message_chunk += message
+    message_chunk += checksum.to_bytes(1, "little")
+    message_chunk = int(len(message_chunk) + 2).to_bytes(2, "little") + message_chunk
+
+    with open(log_file, "ab") as file:
+        file.write(message_chunk)
 
 #### Serial interface ##########################################################
 
@@ -177,9 +185,9 @@ def message_recv(s, data_definition):
 
         print("Message received")
         checksum = msg_id
-        msg_len = s.read()[0]
-        checksum += msg_len
-        msg_len -= 0x56
+        msg_len_original = s.read()[0]
+        checksum += msg_len_original
+        msg_len = msg_len_original - 0x56
         
         msg_mode = s.read()[0]
         checksum += msg_mode
@@ -200,7 +208,7 @@ def message_recv(s, data_definition):
             return()
         else:
 
-            message_log(time.time(), )
+            message_log(time.time(), msg_id, msg_len_original, msg_mode, msg_body, checksum)
 
             '''
             disable logging until revamp
