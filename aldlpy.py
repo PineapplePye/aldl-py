@@ -12,20 +12,7 @@ from bitarray import bitarray
 from simpleeval import simple_eval
 
 #### Global variables ##########################################################
-log_filetype_version = 1
-log_time = time.localtime()
-log_file = os.path.join(os.path.abspath(os.getcwd()), "dumps/recieve", time.strftime("%Y-%m-%d-%H-%M-%S", log_time) + ".ecmlog")
 
-log_file_increment = 0
-while True:
-    if os.path.exists(log_file):
-        log_file_increment += 1
-        log_file = os.path.join(os.path.abspath(os.getcwd()), "dumps/recieve", time.strftime(f"%Y-%m-%d-%H-%M-%S{(str(log_file_increment))}", log_time) + ".ecmlog")
-    else:
-        break
-
-with open(log_file, "wb") as file:
-    file.write(log_filetype_version.to_bytes(2, "little"))
 
 def parse_data(data_definition, transmit_mode, msg_body):
     mode_definition = list(filter(lambda d: int(d['transmit_mode'], 16) == transmit_mode, data_definition["transmit_modes"]))
@@ -331,29 +318,39 @@ def main(args, data_definition):
 def log(args, data_definition):
     in_file = args.log[0]
 
-    if os.path.isdir(in_file):
+    if os.path.isfile(in_file) and in_file.endswith(".ecmlog"):
+        with open(in_file, 'rb') as log_read:
+            filetype_version = int.from_bytes(log_read.read(2), "little")
+            if filetype_version == 1:
+                last_chunk_time = 0
+                while True:
+                    chunk_length = int.from_bytes(log_read.read(2), "little")
+                    chunk_time = int.from_bytes(log_read.read(8), "little") / 1000
+                    message_id = log_read.read(1)
+                    message_length = log_read.read(1)
+                    message_mode = log_read.read(1)
 
-        files = []
-        for root, directories, file in os.walk(in_file):
-            for file in file:
-                if(file.endswith(".bin")):
-                    files.append(os.path.join(root,file))
-        files.sort()
+                    if message_mode == b'\x01':
+                        message = log_read.read(chunk_length - 14)
+                    else:
+                        message = None
 
-        for i, f in enumerate(files):
-            if not i == len(files) - 1:        
-                file, e = os.path.splitext(os.path.basename(f))
-                next_file, e = os.path.splitext(os.path.basename(files[i + 1]))
-                interval_time = float(next_file.replace("-", ".")) - float(file.replace("-", "."))
-            else:
-                interval_time = 0
-            with open(f, 'rb') as f:
-                parse_data(data_definition, b'\x01', f.read())
-            time.sleep(interval_time)
-    elif os.path.isfile(in_file) and in_file.endswith(".bin"):
-        print("Valid log file")
+                    checksum = log_read.read(1)
+
+                    if last_chunk_time == 0:
+                        last_chunk_time = chunk_time
+
+                    time.sleep(chunk_time - last_chunk_time)
+
+                    parse_data(data_definition, int.from_bytes(message_mode, "little"), message)
+
+                    if log_read.tell() >= os.path.getsize(in_file):
+                        break
+
+                    last_chunk_time = chunk_time
+
     else:
-        pass
+        print("Invalid log file 🥸")
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(
@@ -374,4 +371,20 @@ if __name__ == "__main__":
     if args.log:
         log(args, data_definition)
     else:
-       main(args, data_definition)
+
+        log_filetype_version = 1
+        log_time = time.localtime()
+        log_file = os.path.join(os.path.abspath(os.getcwd()), "dumps/recieve", time.strftime("%Y-%m-%d-%H-%M-%S", log_time) + ".ecmlog")
+
+        log_file_increment = 0
+        while True:
+            if os.path.exists(log_file):
+                log_file_increment += 1
+                log_file = os.path.join(os.path.abspath(os.getcwd()), "dumps/recieve", time.strftime(f"%Y-%m-%d-%H-%M-%S{(str(log_file_increment))}", log_time) + ".ecmlog")
+            else:
+                break
+
+        with open(log_file, "wb") as file:
+            file.write(log_filetype_version.to_bytes(2, "little"))
+
+        main(args, data_definition)
